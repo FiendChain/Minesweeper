@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     app::App game(resolution.x, resolution.y, 60, "App");
     game.SetFont(resourceManager.GetFont());
     
-    auto& minesweeperGame = game.SetRunnable<minesweeper::Minesweeper>(gridSize.x, gridSize.y, blockSize, 0.1);
+    auto& minesweeperGame = game.SetRunnable<minesweeper::Minesweeper>(gridSize.x, gridSize.y, blockSize, 0.2);
     minesweeperGame.SetFont(resourceManager.GetFont());
     minesweeperGame.SetTexture(minesweeper::Mine::TextureType::MineTex, resourceManager.GetMineTexture());
     minesweeperGame.SetTexture(minesweeper::Mine::TextureType::Flag, resourceManager.GetFlagTexture());
