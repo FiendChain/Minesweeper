@@ -9,7 +9,6 @@ set(APP_FILES
     ${APP_DIR}/App.cpp
     ${APP_DIR}/Camera/Camera.cpp
     ${APP_DIR}/Camera/ControllableCamera.cpp
-    ${APP_DIR}/ResourceManager/ResourceManager.cpp
     ${APP_DIR}/Utility/FpsCounter/FpsCounter.cpp)
 
 add_library(App ${APP_FILES})

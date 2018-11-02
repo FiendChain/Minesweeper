@@ -13,7 +13,6 @@ App::App(unsigned width, unsigned height, unsigned fps, const std::string& title
       m_Runnable(nullptr)
 { 
     m_Window.setFramerateLimit(fps);
-    m_FpsCounter.SetFont(m_ResourceManager.GetFont());
 }
 
 void App::Run()
@@ -51,6 +50,11 @@ void App::Resize(float x, float y)
     m_Height = y;
     view.setSize(x, y);
     m_Window.setView(view);
+}
+
+void App::SetFont(const sf::Font& font)
+{
+    m_FpsCounter.SetFont(font);
 }
 
 void App::SetFrameRate(unsigned fps)
@@ -93,7 +97,7 @@ void App::Render()
 
 void App::Update()
 {
-    m_FpsCounter.Update(m_ResourceManager.GetClock());
+    m_FpsCounter.Update(m_Clock);
     if (!m_Paused && m_Runnable)
         m_Runnable->Update(0);
 }
