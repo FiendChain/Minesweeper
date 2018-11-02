@@ -1,5 +1,8 @@
 #include "ControllableCamera.hpp"
 
+namespace app 
+{
+
 ControllableCamera::ControllableCamera(unsigned int width, unsigned int height)
     : m_Camera(width, height),
       m_Width(width), m_Height(height),
@@ -127,4 +130,6 @@ void ControllableCamera::Resize(float x, float y)
 void ControllableCamera::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(m_Camera, states);
+}
+
 }

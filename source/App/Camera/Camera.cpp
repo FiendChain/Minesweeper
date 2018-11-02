@@ -1,6 +1,9 @@
 #include "Camera.hpp"
 #include <SFML/Graphics.hpp>
 
+namespace app 
+{
+
 Camera::Camera(unsigned int width, unsigned int height)
     : m_Width(width), m_Height(height),
       m_Position(width/2.0f, height/2.0f), m_Origin(width/2.0f, height/2.0f),
@@ -61,4 +64,6 @@ void Camera::draw(sf::RenderTarget& target, sf::RenderStates states) const
     canvas.setPosition(m_Position);
 
     target.draw(canvas, states);
+}
+
 }

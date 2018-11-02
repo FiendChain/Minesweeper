@@ -2,6 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace app 
+{
+
 class FpsCounter: public sf::Drawable
 {
     private:
@@ -19,3 +22,5 @@ class FpsCounter: public sf::Drawable
         void SetFps(float fps);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
+
+}

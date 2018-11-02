@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <random>
 
+namespace app 
+{
+
 class ResourceManager
 {
     private:
@@ -13,3 +16,5 @@ class ResourceManager
         inline const sf::Font& GetFont() const { return m_Font; }
         inline const sf::Clock& GetClock() const { return m_Clock; }
 };
+
+}

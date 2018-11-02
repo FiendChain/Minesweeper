@@ -2,6 +2,9 @@
 
 #include "Camera.hpp"
 
+namespace app 
+{
+
 class ControllableCamera: public sf::Drawable
 {
     private:
@@ -28,3 +31,5 @@ class ControllableCamera: public sf::Drawable
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
+
+}

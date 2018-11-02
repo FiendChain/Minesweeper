@@ -3,6 +3,9 @@
 #include <sstream>
 #include <iomanip>
 
+namespace app 
+{
+
 FpsCounter::FpsCounter()
 {
     m_Text.setFillColor(sf::Color::White);
@@ -31,4 +34,6 @@ void FpsCounter::SetFps(float fps)
 void FpsCounter::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(m_Text, states);
+}
+
 }

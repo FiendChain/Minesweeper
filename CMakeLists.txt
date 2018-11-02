@@ -8,18 +8,7 @@ set(MINESWEEPER_DIR ${SRC_DIR}/Minesweeper)
 
 include_directories(${SRC_DIR} ${APP_DIR} ${MINESWEEPER_DIR})
 
-add_subdirectory(${MINESWEEPER_DIR})
-
-set(APP_FILES
-    ${APP_DIR}/App.cpp
-    ${APP_DIR}/Camera/Camera.cpp
-    ${APP_DIR}/Camera/ControllableCamera.cpp
-    ${APP_DIR}/ResourceManager/ResourceManager.cpp
-    ${APP_DIR}/Utility/FpsCounter/FpsCounter.cpp)
-
-add_library(App ${APP_FILES})
-target_compile_options(App PUBLIC -std=c++17 -O3 -pthread)
-target_link_libraries(App minesweeper sfml-graphics sfml-audio sfml-window sfml-system)
+add_subdirectory(${APP_DIR} ${MINESWEEPER_DIR})
 
 add_executable(main ${SRC_DIR}/main.cpp)
-target_link_libraries(main App)
+target_link_libraries(main App minesweeper)

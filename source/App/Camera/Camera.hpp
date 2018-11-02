@@ -2,6 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace app 
+{
+
 class Camera: public sf::Drawable
 {
     public:
@@ -22,3 +25,5 @@ class Camera: public sf::Drawable
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
+
+}

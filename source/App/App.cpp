@@ -2,11 +2,15 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+namespace app 
+{
+
 App::App(unsigned width, unsigned height, unsigned fps, const std::string& title)
     : m_Width(width), m_Height(height),
       m_Fps(fps),
       m_Window(sf::VideoMode(width, height), title),
-      m_Paused(false)
+      m_Paused(false),
+      m_Runnable(nullptr)
 { 
     m_Window.setFramerateLimit(fps);
     m_FpsCounter.SetFont(m_ResourceManager.GetFont());
@@ -17,8 +21,7 @@ void App::Run()
     while (m_Window.isOpen())
     {
         PollEvents();
-        if (!m_Paused)
-            Update();
+        Update();
         Render();
     }
 }
@@ -28,6 +31,8 @@ void App::PollEvents()
     sf::Event event;
     while (m_Window.pollEvent(event))
     {
+        if (m_Runnable)
+            m_Runnable->PollEvent(event);
         if (event.type == sf::Event::Closed)
         {
             m_Window.close();
@@ -80,6 +85,8 @@ void App::PollKeyPresses(sf::Keyboard::Key& key)
 void App::Render()
 {
     m_Window.clear(sf::Color::Black);
+    if (m_Runnable)
+        m_Window.draw(*m_Runnable);
     m_Window.draw(m_FpsCounter);
     m_Window.display();
 }
@@ -87,6 +94,10 @@ void App::Render()
 void App::Update()
 {
     m_FpsCounter.Update(m_ResourceManager.GetClock());
+    if (!m_Paused && m_Runnable)
+        m_Runnable->Update(0);
+}
+
 }
 
 
