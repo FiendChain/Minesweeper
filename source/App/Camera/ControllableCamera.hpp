@@ -18,7 +18,7 @@ class ControllableCamera: public sf::Drawable
         ControllableCamera(unsigned int width, unsigned int height);
         inline void Clear(const sf::Color& colour) { m_Camera.Clear(colour); }
         inline void Draw(sf::Drawable& drawable) { m_Camera.Draw(drawable); }
-        void PollEvents(sf::Event& event);
+        void PollEvent(sf::Event& event);
     private:
         void Resize(float x, float y);
     private:

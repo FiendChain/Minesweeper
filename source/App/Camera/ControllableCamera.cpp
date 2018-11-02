@@ -14,7 +14,7 @@ ControllableCamera::ControllableCamera(unsigned int width, unsigned int height)
 
 }
 
-void ControllableCamera::PollEvents(sf::Event& event)
+void ControllableCamera::PollEvent(sf::Event& event)
 {
     switch (event.type)
     {

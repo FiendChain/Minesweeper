@@ -31,20 +31,15 @@ int main(int argc, char *argv[])
     sf::Vector2f gridSize = aspectRatio * 5.0f;
     float blockSize = resolution.x / gridSize.x;
     
-    
-
     ResourceManager resourceManager;
 
     app::App game(resolution.x, resolution.y, 60, "App");
     game.SetFont(resourceManager.GetFont());
-    auto& minesweeperGame = game.SetRunnable<minesweeper::Minesweeper>(gridSize.x, gridSize.y, blockSize, 0.25);
+    
+    auto& minesweeperGame = game.SetRunnable<minesweeper::Minesweeper>(gridSize.x, gridSize.y, blockSize, 0.1);
     minesweeperGame.SetFont(resourceManager.GetFont());
-    minesweeperGame.SetTexture(
-        minesweeper::Mine::TextureType::MineTex, 
-        resourceManager.GetMineTexture());
-    minesweeperGame.SetTexture(
-        minesweeper::Mine::TextureType::Flag, 
-        resourceManager.GetFlagTexture());
+    minesweeperGame.SetTexture(minesweeper::Mine::TextureType::MineTex, resourceManager.GetMineTexture());
+    minesweeperGame.SetTexture(minesweeper::Mine::TextureType::Flag, resourceManager.GetFlagTexture());
 
     game.Run();
     

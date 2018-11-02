@@ -9,6 +9,7 @@ App::App(unsigned width, unsigned height, unsigned fps, const std::string& title
     : m_Width(width), m_Height(height),
       m_Fps(fps),
       m_Window(sf::VideoMode(width, height), title, sf::Style::Fullscreen),
+      m_Camera(width, height),
       m_Paused(false),
       m_Runnable(nullptr)
 { 
@@ -32,6 +33,7 @@ void App::PollEvents()
     {
         if (m_Runnable)
             m_Runnable->PollEvent(event);
+        // m_Camera.PollEvent(event);
         if (event.type == sf::Event::Closed)
         {
             m_Window.close();

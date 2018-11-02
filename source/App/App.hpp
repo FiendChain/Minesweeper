@@ -21,6 +21,7 @@ class App
         sf::Clock m_Clock;
         std::default_random_engine m_RngEngine;
         FpsCounter m_FpsCounter;
+        ControllableCamera m_Camera;
         std::unique_ptr<Base> m_Runnable;
     public:
         App(unsigned width, unsigned height, unsigned fps, const std::string& title);
