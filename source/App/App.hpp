@@ -27,6 +27,8 @@ class App
     public:
         App(unsigned width, unsigned height, unsigned fps, const std::string& title);
         void Run();
+        template <typename T, typename ...Args>
+        T& SetRunnable(Args&& ...args);
     private:
         void PollEvents();
         void PollKeyPresses(sf::Keyboard::Key& key);
@@ -35,5 +37,13 @@ class App
         void Update();
         void Render();
 };
+
+template <typename T, typename ...Args>
+T& App::SetRunnable(Args&& ...args) 
+{
+    T *runnable = new T(std::forward<Args>(args)...);
+    m_Runnable = std::unique_ptr<Base>(runnable);
+    return *runnable;
+}
 
 }

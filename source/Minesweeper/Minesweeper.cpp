@@ -10,7 +10,7 @@ Minesweeper::Minesweeper(unsigned width, unsigned height, unsigned size, float d
 
 }
 
-void PollEvent(const sf::Event& event)
+void Minesweeper::PollEvent(const sf::Event& event)
 {
     switch (event.type)
     {

@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "MineField.hpp" 
-#include "Base.hpp"
+#include "../App/Base.hpp"
  
 namespace minesweeper
 {

@@ -15,4 +15,4 @@ set(APP_FILES
 add_library(App ${APP_FILES})
 target_compile_options(App PUBLIC -std=c++17 -O3 -pthread)
 target_link_libraries(App ${SFML_LIB})
-target_include_directories(App ${APP_DIR})
+target_include_directories(App PUBLIC ${APP_DIR})
