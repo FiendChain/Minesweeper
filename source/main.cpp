@@ -8,6 +8,7 @@ class ResourceManager
         sf::Font m_Font;
         sf::Texture m_BlockTexture;
         sf::Texture m_MineTexture;
+        sf::Texture m_FlagTexture;
     public:
         ResourceManager()
         {
@@ -15,9 +16,12 @@ class ResourceManager
                 throw std::runtime_error("Couldn't load font!");
             if (!m_MineTexture.loadFromFile("resources/textures/mine.png"))
                 throw std::runtime_error("Couldn't load mine texture!");
+            if (!m_FlagTexture.loadFromFile("resources/textures/flag.png"))
+                throw std::runtime_error("Couldn't load flag texture!");
         }
         const sf::Font& GetFont() const { return m_Font; }
         const sf::Texture& GetMineTexture() const { return m_MineTexture; }
+        const sf::Texture& GetFlagTexture() const { return m_FlagTexture; }
 };
 
 int main(int argc, char *argv[])
@@ -33,9 +37,14 @@ int main(int argc, char *argv[])
 
     app::App game(resolution.x, resolution.y, 60, "App");
     game.SetFont(resourceManager.GetFont());
-    auto& minesweeperGame = game.SetRunnable<minesweeper::Minesweeper>(gridSize.x, gridSize.y, blockSize, 0.05);
+    auto& minesweeperGame = game.SetRunnable<minesweeper::Minesweeper>(gridSize.x, gridSize.y, blockSize, 0.25);
     minesweeperGame.SetFont(resourceManager.GetFont());
-    minesweeperGame.SetTexture(minesweeper::Mine::TextureType::MineTex, resourceManager.GetMineTexture());
+    minesweeperGame.SetTexture(
+        minesweeper::Mine::TextureType::MineTex, 
+        resourceManager.GetMineTexture());
+    minesweeperGame.SetTexture(
+        minesweeper::Mine::TextureType::Flag, 
+        resourceManager.GetFlagTexture());
 
     game.Run();
     

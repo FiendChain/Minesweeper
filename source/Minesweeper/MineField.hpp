@@ -19,7 +19,9 @@ class MineField: public sf::Drawable
         void ResetGrid(float density);
         void SetTexture(Mine::TextureType type, const sf::Texture& texture);
         void SetFont(const sf::Font& font);
+        void RemoveMine(int col, int row); 
         Mine& GetMine(int col, int row);
+        bool ValidateIndex(int col, int row) const;
     private:
         inline int GetIndex(int col, int row) const { return row*m_Width + col; }
         void RandomiseGrid(float density);
