@@ -41,5 +41,6 @@
         "mutex": "cpp",
         "iomanip": "cpp"
     },
-    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools"
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+    "C_Cpp.errorSquiggles": "Disabled"
 }

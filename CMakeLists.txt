@@ -4,8 +4,11 @@ project("Minesweeper")
 
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/source)
 set(APP_DIR ${SRC_DIR}/App)
+set(MINESWEEPER_DIR ${SRC_DIR}/Minesweeper)
 
-include_directories(${SRC_DIR} ${APP_DIR})
+include_directories(${SRC_DIR} ${APP_DIR} ${MINESWEEPER_DIR})
+
+add_subdirectory(${MINESWEEPER_DIR})
 
 set(APP_FILES
     ${APP_DIR}/App.cpp
@@ -16,7 +19,7 @@ set(APP_FILES
 
 add_library(App ${APP_FILES})
 target_compile_options(App PUBLIC -std=c++17 -O3 -pthread)
-target_link_libraries(App sfml-graphics sfml-audio sfml-window sfml-system)
+target_link_libraries(App minesweeper sfml-graphics sfml-audio sfml-window sfml-system)
 
 add_executable(main ${SRC_DIR}/main.cpp)
 target_link_libraries(main App)
