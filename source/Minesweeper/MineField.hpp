@@ -12,13 +12,14 @@ class MineField: public sf::Drawable
     private:
         std::vector<Mine> m_Mines;
         std::default_random_engine m_RngEngine;
-        const unsigned m_Width, m_Height, m_BlockSize;
+        const unsigned m_Width, m_Height;
+        const float m_BlockSize;
     public:
-        MineField(unsigned width, unsigned height, unsigned size, float density);
+        MineField(unsigned width, unsigned height, float size, float density);
         void ResetGrid(float density);
-        void SetMineTexture(const sf::Texture& texture);
-        void SetBlockTexture(const sf::Texture& texture);
+        void SetTexture(Mine::TextureType type, const sf::Texture& texture);
         void SetFont(const sf::Font& font);
+        Mine& GetMine(int col, int row);
     private:
         inline int GetIndex(int col, int row) const { return row*m_Width + col; }
         void RandomiseGrid(float density);

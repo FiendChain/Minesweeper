@@ -8,7 +8,7 @@ namespace app
 App::App(unsigned width, unsigned height, unsigned fps, const std::string& title)
     : m_Width(width), m_Height(height),
       m_Fps(fps),
-      m_Window(sf::VideoMode(width, height), title),
+      m_Window(sf::VideoMode(width, height), title, sf::Style::Fullscreen),
       m_Paused(false),
       m_Runnable(nullptr)
 { 
@@ -68,6 +68,9 @@ void App::PollKeyPresses(sf::Keyboard::Key& key)
 {
     switch (key)
     {
+    case sf::Keyboard::Escape:
+        m_Window.close();
+        break;
     case sf::Keyboard::LBracket:
         SetFrameRate(m_Fps-30);
         break;

@@ -1,8 +1,11 @@
 #include "Mine.hpp"
 #include <sstream>
+#include <iostream>
 
 namespace minesweeper
 {
+
+static const sf::Color Grey(125, 125, 125);
 
 const std::vector<sf::Color> Mine::DefaultColours({  
     sf::Color::Transparent,
@@ -10,19 +13,18 @@ const std::vector<sf::Color> Mine::DefaultColours({
     sf::Color::Green,
     sf::Color::Red,
     sf::Color(153, 0, 153), // purple
-    sf::Color::Black,
+    sf::Color::Yellow
 }); 
 
 Mine::Mine()
     : m_State(State::Inactive),
       m_TotalNeighbours(0),
-      m_Show(false)
+      m_Show(false), m_Flagged(false)
 {
-    m_Block.setFillColor(sf::Color::Black);
-    m_Mine.setFillColor(sf::Color::Transparent);
-    m_Text.setFillColor(sf::Color::White);
-    m_Text.setOutlineColor(sf::Color::Black);
-    m_Text.setOutlineThickness(1.5f);
+    m_Block.setOutlineColor(sf::Color::Black);
+    m_Block.setOutlineThickness(1.0f);
+    SetVisible(false);
+    SetTotalNeighbours(0);
     SetSize(0);
     SetPosition(sf::Vector2f(0, 0));
 }
@@ -30,27 +32,40 @@ Mine::Mine()
 void Mine::SetPosition(const sf::Vector2f& pos)
 {
     m_Position = pos;
-    m_Text.setPosition(pos);
+    m_Text.setPosition(sf::Vector2f(pos.x+3, pos.y-3));
     m_Block.setPosition(pos);
     m_Mine.setPosition(pos);
+    m_Flag.setPosition(pos);
 }
 
-void Mine::SetSize(unsigned size)
+void Mine::SetSize(float size)
 {
     m_Size = size;
     m_Text.setCharacterSize(size);
-    m_Block.setSize(sf::Vector2f(size, size));
-    m_Mine.setSize(sf::Vector2f(size, size));
+    sf::Vector2f sizeVector(size, size);
+    m_Block.setSize(sizeVector);
+    m_Mine.setSize(sizeVector);
+    m_Flag.setSize(sizeVector);
 }
 
-void Mine::SetBlockTexture(const sf::Texture& texture)
+void Mine::SetVisible(bool visible)
 {
-    m_Block.setTexture(&texture);
+    m_Show = visible;
+    if (visible)
+        m_Block.setFillColor(sf::Color::White);
+    else
+        m_Block.setFillColor(Grey);
+
 }
 
-void Mine::SetMineTexture(const sf::Texture& texture)
+void Mine::SetTexture(TextureType type, const sf::Texture& texture)
 {
-    m_Mine.setTexture(&texture);
+    switch (type)
+    {
+    case Flag:  m_Flag.setTexture(&texture);  break;
+    case Block: m_Block.setTexture(&texture); break;
+    case MineTex:  m_Mine.setTexture(&texture);  break;
+    }
 }
 
 void Mine::SetFont(const sf::Font& font)
@@ -61,10 +76,8 @@ void Mine::SetFont(const sf::Font& font)
 void Mine::SetTotalNeighbours(unsigned totalNeighbours, const std::vector<sf::Color>& colours)
 {
     m_TotalNeighbours = totalNeighbours;
-    std::stringstream ss;
-    ss << totalNeighbours;
-    m_Text.setString(ss.str());
-    if (totalNeighbours >= colours.size())
+    m_Text.setString(std::to_string((int)totalNeighbours));
+    if (totalNeighbours >= (unsigned)colours.size())
         m_Text.setFillColor(colours.at(colours.size()-1));
     else
         m_Text.setFillColor(colours.at(totalNeighbours));
@@ -75,15 +88,20 @@ void Mine::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(m_Block, states);
     
     if (!m_Show)
+    {
+        if (m_Flagged)
+            target.draw(m_Flag, states);
         return;
-    
+    }
+        
     switch (m_State)
     {
     case State::Active:
         target.draw(m_Mine, states);
         break;
     case State::Inactive:
-        target.draw(m_Text, states);
+        if (m_TotalNeighbours > 0)
+            target.draw(m_Text, states);
         break;
     }
 }

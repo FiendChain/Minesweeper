@@ -14,4 +14,5 @@ add_subdirectory(${APP_DIR})
 add_subdirectory(${MINESWEEPER_DIR})
 
 add_executable(main ${SRC_DIR}/main.cpp)
+target_compile_options(main PUBLIC -std=c++17 -O3)
 target_link_libraries(main App minesweeper ${SFML_LIB})
